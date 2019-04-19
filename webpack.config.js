@@ -12,7 +12,7 @@ module.exports = {
   context: path.resolve(__dirname),
   devtool: 'source-map',
   entry: {
-    [libraryName]: path.resolve('src/index.ts'),
+    [libraryName]: path.resolve('src/cli.ts'),
   },
   output: {
     path: path.resolve(__dirname, 'lib'),
@@ -56,7 +56,7 @@ module.exports = {
     }),
     new WebpackPluginTypescriptDeclarationBundler({
       moduleName: `"${libraryName}"`,
-      out: './index.d.ts',
+      out: './cli.d.ts',
     }),
   ],
 
