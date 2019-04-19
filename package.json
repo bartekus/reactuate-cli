@@ -13,7 +13,8 @@
   "files": [
     "lib",
     "templates",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "npm-run-all --parallel build:*",
