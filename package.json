@@ -1,39 +1,63 @@
 {
   "name": "reactuate-cli",
   "version": "0.0.0-development",
-  "description": "CLI tool for creating multi-platform MVP",
+  "description": "CLI tool for creating multi-platform React-Native-Web MVP",
   "engines": {
     "node": "10",
     "npm": "6"
   },
-  "main": "lib/index.js",
+  "main": "src/cli.js",
+  "bin": {
+    "reactuate-cli": "lib/cli.js"
+  },
   "files": [
     "lib",
+    "templates",
     "README.md"
   ],
   "scripts": {
-    "commit": "git-cz",
-    "coverage": "npm test -- --coverage",
-    "postcoverage": "opn coverage/lcov-report/index.html",
-    "prebuild": "shx rm -rf lib",
     "build": "npm-run-all --parallel build:*",
     "build:umd": "webpack --output-filename index.js",
     "build:umd.min": "webpack --output-filename index.min.js",
-    "semantic-release": "semantic-release",
+    "commit": "git-cz",
+    "coverage": "npm test -- --coverage",
     "lint": "tslint --fix --project tsconfig.json -c tslint.json 'src/**/*.{ts,tsx}' 'test/**/*.ts'",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "prebuild": "shx rm -rf lib",
+    "start": "node lib/cli",
+    "semantic-release": "semantic-release",
     "report": "cat ./coverage/lcov.info | codecov",
     "test": "jest --env=jsdom --colors --verbose",
     "test:watch": "npm test -- --watch",
     "travis-deploy-once": "travis-deploy-once"
   },
-  "repository": "https://github.com/bartekus/reactuate-cli.git",
   "author": "Bartek Kus <bartekus@gmail.com> (https://bartekus.com/)",
   "bugs": {
     "url": "https://github.com/bartekus/reactuate-cli/issues"
   },
   "homepage": "https://github.com/bartekus/reactuate-cli#readme",
+  "repository": "https://github.com/bartekus/reactuate-cli.git",
   "license": "Apache-2.0",
-  "dependencies": {},
+  "keywords": [
+    "react",
+    "react-native",
+    "react-native-web",
+    "electron",
+    "monorepo",
+    "project",
+    "starter",
+    "multi",
+    "platforms",
+    "desktop",
+    "mobile",
+    "web",
+    "all-in-one"
+  ],
+  "dependencies": {
+    "chalk": "2.4.2",
+    "commander": "2.20.0",
+    "fs-extra": "7.0.1"
+  },
   "devDependencies": {
     "@babel/core": "7.0.0",
     "@types/jest": "23.3.10",
@@ -53,8 +77,9 @@
     "lint-staged": "8.1.0",
     "npm-run-all": "4.1.5",
     "opn-cli": "4.0.0",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "15.13.3",
     "shx": "0.3.2",
+    "shelljs": "0.8.3",
     "travis-deploy-once": "5.0.11",
     "ts-jest": "23.10.5",
     "ts-loader": "5.3.1",
@@ -106,7 +131,8 @@
       "node_modules"
     ],
     "testPathIgnorePatterns": [
-      "node_modules"
+      "node_modules",
+      "./template/*"
     ],
     "moduleDirectories": [
       "src",
