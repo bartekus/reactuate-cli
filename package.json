@@ -12,7 +12,7 @@
   },
   "files": [
     "lib",
-    "templates",
+    "templates/*",
     "README.md",
     "LICENSE"
   ],

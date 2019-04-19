@@ -55,6 +55,10 @@ module.exports = {
       moduleName: `"${libraryName}"`,
       out: './cli.d.ts',
     }),
+    new webpack.BannerPlugin({
+      banner: '#!/usr/bin/env node',
+      raw: true
+    })
   ],
 
   module: {
