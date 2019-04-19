@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const WebpackPluginTypescriptDeclarationBundler = require('webpack-plugin-typescript-declaration-bundler');
 
 const include = path.resolve(__dirname, 'src');
@@ -9,6 +9,7 @@ const minimize = process.env.npm_lifecycle_event.split('.')[1] === 'min';
 
 module.exports = {
   mode: minimize ? 'production' : 'development',
+  target: 'node',
   context: path.resolve(__dirname),
   devtool: 'source-map',
   entry: {
@@ -17,24 +18,20 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'lib'),
     filename: "[name].js",
-    libraryTarget: 'umd',
-    library: libraryName,
-    umdNamedDefine: true,
-    globalObject: '(typeof global!=="undefined"?global:window)'
+    libraryTarget: 'commonjs2',
   },
   optimization: {
     minimize,
     minimizer: [
-      new UglifyPlugin({
-        uglifyOptions: {
-          compress: true,
+      new TerserPlugin({
+        terserOptions: {
           mangle: true,
           output: {
             comments: false,
           },
+          sourceMap: true,
         },
-        sourceMap: false,
-      })
+      }),
     ],
     occurrenceOrder: true,
     namedModules: true,
@@ -65,12 +62,15 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        include
+        include,
+        resolve: {
+          extensions: ['.js', '.ts'],
+        },
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include
+        include,
       },
       {
         test: /\.json$/,
@@ -78,5 +78,5 @@ module.exports = {
         include
       },
     ]
-  }
+  },
 };

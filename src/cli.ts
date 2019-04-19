@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import commander from 'commander';
 import fs from 'fs-extra';
 import path from 'path';
