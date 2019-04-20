@@ -1,7 +1,6 @@
 import commander from 'commander';
 import fs from 'fs-extra';
 import path from 'path';
-import shell from 'shelljs';
 import { execSync } from 'child_process';
 
 import Print from './utils/print';
@@ -46,10 +45,9 @@ class Reactuate {
       fs.ensureDirSync(appName);
       fs.emptyDirSync(appName);
 
-      const getCurrent = () => shell.pwd().stdout;
-
       Print.log(Color.cyan(Message.step01()));
-      fs.copySync(path.join(getCurrent(), 'template'), appName);
+
+      fs.copySync(path.resolve(__dirname, 'template'), appName);
 
       Print.log(Color.cyan(Message.step02()));
 
