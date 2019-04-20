@@ -47,7 +47,7 @@ class Reactuate {
 
       Print.log(Color.cyan(Message.step01()));
 
-      fs.copySync(path.resolve(__dirname, 'template'), appName);
+      fs.copySync(path.resolve(__dirname, '..', 'template'), appName);
 
       Print.log(Color.cyan(Message.step02()));
 

@@ -6,7 +6,7 @@
     "node": "10",
     "npm": "6"
   },
-  "main": "src/cli.js",
+  "main": "lib/cli.js",
   "bin": {
     "reactuate-cli": "lib/cli.js"
   },

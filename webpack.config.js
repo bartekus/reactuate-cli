@@ -9,17 +9,28 @@ const minimize = process.env.npm_lifecycle_event.split('.')[1] === 'min';
 
 module.exports = {
   mode: minimize ? 'production' : 'development',
-  target: 'node',
-  context: path.resolve(__dirname),
+
   devtool: 'source-map',
+
+  target: 'node',
+
+  node: {
+    __dirname: false,
+  },
+
+  context: path.resolve(__dirname),
+
   entry: {
     [libraryName]: path.resolve('src/cli.ts'),
   },
+
   output: {
     path: path.resolve(__dirname, 'lib'),
     filename: "[name].js",
     libraryTarget: 'commonjs2',
+    publicPath: '',
   },
+
   optimization: {
     minimize,
     minimizer: [
@@ -45,6 +56,7 @@ module.exports = {
     usedExports: true,
     concatenateModules: true,
   },
+
   plugins: [
     new webpack.HashedModuleIdsPlugin({
       hashFunction: 'sha256',
@@ -58,7 +70,7 @@ module.exports = {
     new webpack.BannerPlugin({
       banner: '#!/usr/bin/env node',
       raw: true
-    })
+    }),
   ],
 
   module: {
